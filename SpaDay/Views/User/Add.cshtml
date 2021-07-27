@@ -1,0 +1,34 @@
+﻿<!--<form method='post' action="/user"> -->
+
+<form asp-controller="User" asp-action="SubmitAddUserForm">
+    <b>@ViewBag.error</b>
+    <br />
+    <br />
+    <label for="username">Username</label>
+    <br />
+    <input name="username" id="username" type="text" class="form-control" value="@ViewBag.newUsername" />
+
+    <br />
+
+    <label for="email">Email</label>
+    <br />
+    <input name="email" id="email" type="email" class="form-control" value="@ViewBag.newEmail"/>
+
+    <br />
+
+    <label for="password">Password</label>
+    <br />
+    <input name="password" id="password" type="password" class="form-control" />
+
+    <br />
+
+    <label for="verify">Verify Password</label>
+    <br />
+    <input name="verify" id="verify" type="password" class="form-control"/>
+
+    <br />
+    <br />
+
+    <input type='submit' value='Submit'>
+
+</form>
