@@ -1,34 +1,44 @@
-﻿<!--<form method='post' action="/user"> -->
+﻿@using SpaDay.ViewModels;
 
-<form asp-controller="User" asp-action="SubmitAddUserForm">
-    <b>@ViewBag.error</b>
-    <br />
-    <br />
-    <label for="username">Username</label>
-    <br />
-    <input name="username" id="username" type="text" class="form-control" value="@ViewBag.newUsername" />
+@model AddUserViewModel;
+@*<form method='post' action="/user">*@
+
+<h1>Sign Up Form</h1>
+<form asp-controller="User" asp-action="SubmitAddUserForm" method="post">
+    <p id="error">
+        <b>@ViewBag.error</b>
+    </p>
+
+    <div>
+        <label asp-for="Username"></label>
+        <br />
+        <input asp-for="Username" class="form-control" />
+        <span asp-validation-for="Username"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <br />
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password"></label>
+        <br />
+        <input type="password" asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <div>
+        <label asp-for="VerifyPassword">Verify Password</label>
+        <br />
+        <input type="password" asp-for="VerifyPassword" class="form-control" />
+        <span asp-validation-for="VerifyPassword"></span>
+    </div>
 
     <br />
-
-    <label for="email">Email</label>
-    <br />
-    <input name="email" id="email" type="email" class="form-control" value="@ViewBag.newEmail"/>
-
-    <br />
-
-    <label for="password">Password</label>
-    <br />
-    <input name="password" id="password" type="password" class="form-control" />
-
-    <br />
-
-    <label for="verify">Verify Password</label>
-    <br />
-    <input name="verify" id="verify" type="password" class="form-control"/>
-
-    <br />
-    <br />
-
     <input type='submit' value='Submit'>
 
 </form>
+

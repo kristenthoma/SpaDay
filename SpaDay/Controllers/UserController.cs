@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpaDay.Models;
+using SpaDay.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,24 +18,46 @@ namespace SpaDay.Controllers
         [Route("user/add")]
         public IActionResult Add()
         {
-            return View();
+            AddUserViewModel addUserViewModel = new AddUserViewModel();
+
+            return View(addUserViewModel);
         }
 
         [HttpPost]
-        public IActionResult SubmitAddUserForm(User newUser, string verify)
+        public IActionResult SubmitAddUserForm(AddUserViewModel addUserViewModel)
         {
-            if (newUser.Password == verify)
+
+            if (ModelState.IsValid)
             {
-                ViewBag.newUser = newUser;
-                return View("Index");
+                if (addUserViewModel.Password == addUserViewModel.VerifyPassword)
+                {
+                    User newUser = new User
+                    {
+                        Username = addUserViewModel.Username,
+                        Email = addUserViewModel.Email,
+                        Password = addUserViewModel.Password,
+                        VerifyPassword = addUserViewModel.VerifyPassword
+                    };
+
+                    return View("Index", addUserViewModel);
+                }
+
+                else
+                {
+                    User newUser = new User
+                    {
+                        Username = addUserViewModel.Username,
+                        Email = addUserViewModel.Email,
+                    };
+
+                    ViewBag.error = "Passwords Do Not Match";
+
+                    return View("Add", addUserViewModel);
+                }
+
             }
-            else
-            {
-                ViewBag.newUsername = newUser.Username;
-                ViewBag.newEmail = newUser.Email;
-                ViewBag.error = "Passwords Do Not Match";
-                return View("Add");
-            }
+
+            return View("Add");
         }
     }
 }
